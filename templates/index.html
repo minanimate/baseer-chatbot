@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Baseer AI - Homeopathic Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">💊 Baseer AI - Homeopathic Assistant</div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type your symptoms or info..." onkeydown="if(event.key==='Enter') sendMessage();">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatBox = document.getElementById("chat-box");
+
+      // Show user message
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user-message";
+      userMsg.innerHTML = `<div class="avatar">🧑</div><div class="text">${message}</div>`;
+      chatBox.appendChild(userMsg);
+
+      // Typing animation
+      const typing = document.createElement("div");
+      typing.className = "message bot-message typing";
+      typing.innerHTML = `<div class="avatar">🤖</div><div class="text"><em>Typing...</em></div>`;
+      chatBox.appendChild(typing);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = "";
+
+      try {
+        const res = await fetch("/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+
+        // Replace typing with bot reply
+        typing.remove();
+        const botMsg = document.createElement("div");
+        botMsg.className = "message bot-message";
+        botMsg.innerHTML = `<div class="avatar">🤖</div><div class="text">${data.reply.replace(/\n/g, "<br>")}</div>`;
+        chatBox.appendChild(botMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (error) {
+        typing.remove();
+        const errorMsg = document.createElement("div");
+        errorMsg.className = "message bot-message";
+        errorMsg.innerHTML = `<div class="avatar">🤖</div><div class="text">❌ Sorry, something went wrong.</div>`;
+        chatBox.appendChild(errorMsg);
+        console.error("Fetch error:", error);
+      }
+    }
+  </script>
+</body>
+</html>

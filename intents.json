@@ -1,0 +1,94 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "What's up?", "Good morning", "Good evening", "Howdy", "Yo"],
+      "responses": [
+        "Hey there! 😊 How can I help you today?",
+        "Hello! Ready to chat?",
+        "Hi! What brings you here?",
+        "Hey! Got something on your mind?",
+        "Hello there! What would you like to talk about?",
+        "Yo! What's good? Need something?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Catch you later", "Talk to you later"],
+      "responses": [
+        "Goodbye! 👋 Stay awesome!",
+        "See you soon. Take care!",
+        "Bye for now! Always happy to help.",
+        "Take care! Chat again soon.",
+        "Catch you on the flip side! 👋",
+        "Later! Don't forget to smile."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Much appreciated", "Thx"],
+      "responses": [
+        "You're very welcome! 💙",
+        "Glad I could help!",
+        "Happy to help anytime 😊",
+        "No problem at all!",
+        "Anytime! That's what I'm here for 🙌",
+        "Always here to support!"
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": ["What is your name?", "Who are you?", "Can I know your name?"],
+      "responses": [
+        "I'm ChatNova, your friendly assistant! ✨",
+        "People call me ChatNova. How can I assist you?",
+        "You can call me ChatNova 🤖",
+        "I'm your chatbot buddy—ChatNova!"
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": ["Help", "Can you help me?", "I need assistance", "I need help"],
+      "responses": [
+        "Of course! 😊 What do you need help with?",
+        "I'm here to help! Just tell me what you need.",
+        "Let’s solve it together! What’s the issue?",
+        "Happy to help. Just say the word!"
+      ]
+    },
+    {
+      "tag": "unknown",
+      "patterns": [],
+      "responses": [
+        "I'm not sure I understand that. Can you rephrase?",
+        "Hmm, I’m still learning! Could you clarify that?",
+        "Oops! That one went over my head. Try again?",
+        "I didn’t quite get that. Want to give it another shot?"
+      ]
+    },
+    {
+      "tag": "philosophy",
+      "patterns": ["what is life", "meaning of life", "why are we here"],
+      "responses": [
+        "Life is a journey, not a destination.",
+        "To live is to grow. 🌱"
+      ]
+    },
+    {
+      "tag": "joke",
+      "patterns": ["tell me a joke", "make me laugh", "say something funny"],
+      "responses": [
+        "Why don’t scientists trust atoms? Because they make up everything!",
+        "I'm reading a book on anti-gravity — it’s impossible to put down!"
+      ]
+    },
+    {
+      "tag": "emotions",
+      "patterns": ["I'm sad", "I'm happy", "I'm stressed", "I'm anxious"],
+      "responses": [
+        "I'm here for you. Want to talk about it?",
+        "That’s okay — we all have feelings. 😊"
+      ]
+    }
+  ]
+}
