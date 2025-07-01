@@ -6,5 +6,6 @@ langdetect
 gunicorn
 python-dotenv
 openai
+flask-cors
 
 
