@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.chat-window {
+  width: 100%;
+  max-width: 420px;
+  height: 95vh;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background-color: #00ACBB;
+  color: white;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f9f9f9;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Bot/user message styles */
+.message {
+  padding: 10px 14px;
+  border-radius: 16px;
+  max-width: 80%;
+  width: fit-content;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 15px;
+}
+
+.user {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.bot {
+  background-color: #ececec;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+/* Input box */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  outline: none;
+  min-width: 0;
+}
+
+/* ChatGPT-style placeholder */
+.chat-input input::placeholder {
+  color: #888;
+  font-style: italic;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.chat-input input:focus::placeholder {
+  color: #aaa;
+  opacity: 0.5;
+}
+
+.chat-input button {
+  background-color: #00ACBB;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  margin-left: 10px;
+  border-radius: 999px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Typing animation */
+.typing {
+  font-style: italic;
+  color: gray;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+/* Urdu support */
+.urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  direction: rtl;
+  font-size: 16px;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 600px) {
+  .chat-window {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .chat-header {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .chat-input input {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .chat-input button {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}

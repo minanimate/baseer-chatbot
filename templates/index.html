@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Baseer AI - Homeopathic Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="chat-window">
+    <div class="chat-header">
+      💊 <strong>Baseer AI</strong> – <span class="urdu">بسیر اے آئی رہنما</span>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Send a message..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button onclick="sendMessage()">&#9658;</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const inputField = document.getElementById("user-input");
+
+    let userInfo = {
+      name: null,
+      age: null,
+      gender: null,
+      symptoms: null
+    };
+
+    function appendMessage(message, sender) {
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message", sender === "user" ? "user" : "bot");
+      msgDiv.innerHTML = message.replace(/\n/g, "<br>");
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const message = inputField.value.trim();
+      if (!message) return;
+
+      appendMessage(message, "user");
+      inputField.value = "";
+
+      const pattern = /^([\w\s]+)[, ]+(\d{1,3})\s*(saal)?[, ]+(male|female|mard|aurat)[, ]+(.+)$/i;
+      const match = message.match(pattern);
+
+      if (match) {
+        userInfo.name = match[1].trim();
+        userInfo.age = match[2].trim();
+        userInfo.gender = match[4].toLowerCase().trim();
+        userInfo.symptoms = match[5].trim();
+      } else {
+        userInfo.symptoms = message;
+      }
+
+      const typingDiv = document.createElement("div");
+      typingDiv.className = "message bot";
+      typingDiv.innerHTML = `<span class="typing">💬 Typing...</span>`;
+      chatBox.appendChild(typingDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      fetch("/get_remedy", {
+        method: "POST",
+        body: JSON.stringify(userInfo),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.json())
+      .then(data => {
+        const fullText = data.reply;
+        typingDiv.innerHTML = "";
+        let index = 0;
+
+        function typeText() {
+          if (index < fullText.length) {
+            typingDiv.innerHTML += fullText.charAt(index);
+            index++;
+            setTimeout(typeText, 20);
+          } else {
+            chatBox.scrollTop = chatBox.scrollHeight;
+          }
+        }
+
+        typeText();
+      })
+      .catch(err => {
+        typingDiv.innerHTML = "⚠️ Error connecting to server.";
+      });
+    }
+
+    window.onload = function () {
+      const welcomeMsg = `
+        👋 <b>Assalam-o-Alaikum! Main Pakistan ka pehla homeopathic 🤖 bot hoon.</b><br>
+        Aapki sehat behtar banane aur 💚 shifa dene ke liye tayyar hoon 💊😊
+      `;
+      appendMessage(welcomeMsg, "bot");
+    };
+  </script>
+</body>
+</html>
