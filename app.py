@@ -1,5 +1,6 @@
 
 # from dotenv import load_dotenv
+from dotenv import load_dotenv  # Optional for local dev
 import os
 import json
 from flask import Flask, request, jsonify, render_template, session
@@ -9,21 +10,20 @@ import numpy as np
 from flask_cors import CORS
 from datetime import datetime
 
-# Load environment variables
-# load_dotenv()
-# openai_api_key = os.getenv("OPENAI_API_KEY")
-# if not openai_api_key:
-#     raise ValueError("❌ OPENAI_API_KEY not found in .env")
-if not OPENAI_API_KEY:
-    print("⚠️ OPENAI_API_KEY not found! Make sure it's set in Render's env variables.")
+# ✅ Load environment variables
+load_dotenv()  # Safe to leave here for local testing
 
-
-client = OpenAI(api_key=openai_api_key)
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    print("⚠️ OPENAI_API_KEY not found! Make sure it's set in Render's environment variables.")
+else:
+    client = OpenAI(api_key=openai_api_key)
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 app.secret_key = os.getenv("SECRET_KEY", "secret")
+
 
 # Load embedded medicine data
 with open("data/embedded_meds.json", "r", encoding="utf-8") as f:
