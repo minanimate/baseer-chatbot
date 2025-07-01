@@ -1,5 +1,5 @@
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 import json
 from flask import Flask, request, jsonify, render_template, session
@@ -10,10 +10,13 @@ from flask_cors import CORS
 from datetime import datetime
 
 # Load environment variables
-load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
-if not openai_api_key:
-    raise ValueError("❌ OPENAI_API_KEY not found in .env")
+# load_dotenv()
+# openai_api_key = os.getenv("OPENAI_API_KEY")
+# if not openai_api_key:
+#     raise ValueError("❌ OPENAI_API_KEY not found in .env")
+if not OPENAI_API_KEY:
+    print("⚠️ OPENAI_API_KEY not found! Make sure it's set in Render's env variables.")
+
 
 client = OpenAI(api_key=openai_api_key)
 
